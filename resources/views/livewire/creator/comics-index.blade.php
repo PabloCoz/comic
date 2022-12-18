@@ -59,7 +59,7 @@
                                             <div class="text-sm text-gray-500">Cantidad de lectores</div>
                                         </td>
                                         <td class="px-6 py-4">
-                                            @php 
+                                            @php
                                                 $value = $comic->ratings->avg('value');
                                             @endphp
                                             <div class="text-sm text-gray-900 flex items-center">
