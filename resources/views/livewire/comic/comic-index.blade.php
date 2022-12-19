@@ -1,6 +1,6 @@
 <div>
-    <div class="max-w-6xl mx-auto mt-4">
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+    <div class="max-w-6xl lg:max-w-7xl mx-auto mt-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2">
             <div class="px-4">
                 <h1 class="text-xl font-josefin uppercase">Filtros</h1>
                 <div class="mt-8">
@@ -37,7 +37,7 @@
                 </div>
             </div>
 
-            <div class="col-span-3 col-start-2 mt-10">
+            <div class="col-span-3 col-start-1 md:col-start-2 mt-10">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     @foreach ($comics as $item)
                         <a href="{{ route('comics.show', $item) }}"
@@ -54,7 +54,7 @@
                         </a>
                     @endforeach
                 </div>
-                <div>
+                <div class="mt-3 p-2">
                     {{ $comics->links() }}
                 </div>
             </div>

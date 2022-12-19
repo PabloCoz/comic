@@ -30,8 +30,9 @@
         @livewire('navigation-menu')
         <!-- Page Heading -->
         <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-6 py-4">
-            <aside>
-                <h1 class="font-bold text-lg mb-4">EDITOR</h1>
+            <aside class="mx-3 md:mx-0">
+                <a href="{{route('creator.comics.index')}}" class="my-8 bg-indigo-500 text-white font-bold p-2 rounded-full uppercase text-sm tracking-wider">menu principal</a>
+                <h1 class="font-bold text-lg my-4">EDITOR</h1>
 
                 <ul class="text-sm">
                     <li class="leading-7 mb-1 border-l-4 pl-2 @routeIs('creator.comics.edit', $comic) border-rose-600 @endif">

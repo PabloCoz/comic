@@ -16,7 +16,7 @@ class ComicIndex extends Component
     {
         $comics =  Comic::orderBy('id', 'desc')
             ->where('title', 'like', '%' . $this->search . '%')
-            ->category($this->cate)->paginate(10);
+            ->category($this->cate)->paginate(12);
         return view('livewire.comic.comic-index', compact('comics'));
     }
 
