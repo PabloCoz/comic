@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-black">
+<nav x-data="{ open: false }" class="bg-black pb-2 md:pb-0">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -65,6 +65,12 @@
                                         </x-jet-dropdown-link>
                                     @endcan
 
+                                    @can('Ver Dashboard (administrador)')
+                                        <x-jet-dropdown-link href="{{ route('admin') }}">
+                                            Panel de administrador
+                                        </x-jet-dropdown-link>
+                                    @endcan
+
                                     <x-jet-dropdown-link href="{{ route('profile.show') }}">
                                         {{ __('Profile') }}
                                     </x-jet-dropdown-link>
@@ -106,50 +112,59 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
-                {{ __('Dashboard') }}
-            </x-jet-responsive-nav-link>
+    <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden bg-white mx-2 rounded-lg p-2">
+        <div class="space-y-2">
+            <a href="{{ route('home') }}"
+                class="block pl-2 border-l-4 @routeIs('home') border-rose-600 @endif">Inicio</a>
+            <a href="{{ route('comics.index') }}"
+                class="block pl-2 border-l-4 @routeIs('comics.index') border-rose-600 @endif">Comics</a>
+            <a href="{{ route('home') }}"
+                class="block pl-2 border-l-4 @routeIs('home') border-rose-600 @endif">Nosotros</a>
         </div>
-
-        <!-- Responsive Settings Options -->
+        <hr class="my-4">
         @auth
-            <div class="pt-4 pb-1 border-t border-gray-200">
-                <div class="flex items-center px-4">
-                    @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                        <div class="shrink-0 mr-3">
-                            <img class="h-10 w-10 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}"
-                                alt="{{ Auth::user()->name }}" />
-                        </div>
-                    @endif
-
-                    <div>
-                        <div class="font-medium text-base text-white">{{ Auth::user()->username }}</div>
-                    </div>
+            <div class="space-y-2">
+                @can('Ver Dashboard (administrador)')
+                    <a href="{{ route('admin') }}" class="block pl-2 border-l-4 @routeIs('admin') border-rose-600 @endif">Panel
+                        de administrador</a>
+                @endcan
+                @can('creator', auth()->user())
+                    <a href="{{ route('creator.comics.index') }}"
+                        class="block pl-2 border-l-4 @routeIs('creator.comics.index') border-rose-600 @endif">Panel de creador</a>
+                @endcan
+                <a href="{{ route('comics.user') }}"
+                    class="block pl-2 border-l-4 @routeIs('comics.user') border-rose-600 @endif">Mis comics favoritos</a>
+            </div>
+            <div class="flex items-center justify-between mt-3">
+                <div class="flex items-center">
+                    <img src="{{ auth()->user()->profile_photo_url }}"
+                        class="h-9 w-9 rounded-full object-center object-contain">
+                    <h1 class="ml-2">{{ auth()->user()->username }}</h1>
                 </div>
 
-                <div class="mt-3 space-y-1">
-                    <!-- Account Management -->
-
-                    <a href="{{ route('profile.show') }}"
-                        class="text-white w-full bg-green-600 py-2 uppercase text-sm tracking-wider font-bold ml-4">
-                        Perfil de Usuario
-                    </a>
-
-
-
-                    <!-- Authentication -->
-                    <form class="w-full bg-rose-600 py-2 " method="POST" action="{{ route('logout') }}" x-data>
+                <div>
+                    <form method="POST" action="{{ route('logout') }}" x-data>
                         @csrf
 
-                        <a class="text-white uppercase text-sm tracking-wider font-bold ml-4" href="{{ route('logout') }}"
-                            @click.prevent="$root.submit();">
-                            {{ __('Log Out') }}
-                        </a>
+                        <button type="submit" class="bg-red-600 text-white font-bold p-2 rounded-full">
+                            Cerrar sesión
+                        </button>
                     </form>
                 </div>
             </div>
+            <div class="flex items-center justify-center mt-5">
+                @if (auth()->user()->is_creator == false)
+                    <a href="{{ route('active') }}"
+                        class="text-white w-full text-center uppercase text-sm bg-green-600 font-bold p-2 rounded-full">
+                        PUBLICAR YA!!</a>
+                @endif
+            </div>
+        @else
+            <div class="flex items-center justify-center space-x-2">
+                <a href="{{ route('login') }}" class="bg-rose-600 p-2 rounded-full text-white font-bold">Iniciar Sesion</a>
+                <a href="{{ route('register') }}" class="p-2 underline rounded-full font-bold">Registrarse</a>
+            </div>
+
         @endauth
     </div>
 </nav>

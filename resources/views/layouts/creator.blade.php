@@ -31,10 +31,12 @@
         <!-- Page Heading -->
         <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-6 py-4">
             <aside class="mx-3 md:mx-0">
-                <a href="{{route('creator.comics.index')}}" class="my-8 bg-indigo-500 text-white font-bold p-2 rounded-full uppercase text-sm tracking-wider">menu principal</a>
+                <a href="{{ route('creator.comics.index') }}"
+                    class="my-8 bg-indigo-500 text-white font-bold p-2 rounded-full uppercase text-sm tracking-wider">menu
+                    principal</a>
                 <h1 class="font-bold text-lg my-4">EDITOR</h1>
 
-                <ul class="text-sm">
+                <ul class="text-sm space-y-3">
                     <li class="leading-7 mb-1 border-l-4 pl-2 @routeIs('creator.comics.edit', $comic) border-rose-600 @endif">
                         <a href="{{ route('creator.comics.edit', $comic) }}">Información General</a>
                     </li>
@@ -44,7 +46,44 @@
                     <li class="leading-7 mb-1 border-l-4 pl-2">
                         <a href="">Detalles extras</a>
                     </li>
+                    <li class="leading-7 mb-1 border-l-4 pl-2 @routeIs('creator.comics.observations', $comic) border-rose-600 @endif">
+                        <div class="flex items-center">
+                            <a href="{{ route('creator.comics.observations', $comic) }}">Observaciones</a>
+                            @if ($comic->observations->count() > 0)
+                                <div class="max-w-sm animate-pulse p-1.5 rounded-full bg-red-600 ml-2">
+                                </div>
+                            @endif
+                        </div>
+                    </li>
                 </ul>
+
+                <div class="mt-4">
+                    @switch($comic->status)
+                        @case(1)
+                            <form action="{{ route('creator.comics.status', $comic) }}" method="POST">
+                                @csrf
+                                <button type="submit"
+                                    class="bg-red-500 text-white font-bold p-2 rounded-full uppercase text-sm tracking-wider">
+                                    Solicitar revision
+                                </button>
+                            </form>
+                        @break
+
+                        @case(2)
+                            <span class="bg-yellow-500 text-white font-bold p-2 rounded-full uppercase text-sm tracking-wider">
+                                En revisión
+                            </span>
+                        @break
+
+                        @case(3)
+                            <span class="bg-green-500 text-white font-bold p-2 rounded-full uppercase text-sm tracking-wider">
+                                Publicado
+                            </span>
+                        @break
+
+                        @default
+                    @endswitch
+                </div>
             </aside>
             <div class="md:col-span-4 overflow-hidden bg-white rounded-lg shadow-md">
                 <main class="px-4 py-6">

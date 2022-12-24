@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Storage;
 
 class ComicController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:Listar Comic (creador)')->only('index');
+        $this->middleware('can:Crear Comic (creador)')->only('create', 'store');
+        $this->middleware('can:Editar Comic (creador)')->only('edit', 'update', 'status');
+        $this->middleware('can:Eliminar Comic (creador)')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -129,5 +136,13 @@ class ComicController extends Controller
     public function destroy(Comic $comic)
     {
         //
+    }
+
+    public function status(Comic $comic)
+    {
+        $this->authorize('created', $comic);
+        $comic->status = 2;
+        $comic->save();
+        return redirect()->route('creator.comics.index')->with('success', 'Comic status updated successfully');
     }
 }

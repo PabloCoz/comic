@@ -15,6 +15,7 @@ class ComicController extends Controller
 
     public function show(Comic $comic)
     {
+        $this->authorize('published', $comic);
         $chapters = $comic->chapters()->orderBy('position', 'asc')->get();
         return view('comics.show', compact('comic' , 'chapters'));
     }

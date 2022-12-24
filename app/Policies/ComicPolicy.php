@@ -34,11 +34,29 @@ class ComicPolicy
             return true;
     }
 
-    public function created (User $user, Comic $comic)
+    public function created(User $user, Comic $comic)
     {
         if ($comic->user_id == $user->id)
             return true;
         else
             return false;
+    }
+
+    public function published(?User $user, Comic $comic)
+    {
+        if ($comic->status == 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function revision(User $user, Comic $comic)
+    {
+        if ($comic->status == 2) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

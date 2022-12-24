@@ -33,12 +33,13 @@ class ActiveCreator extends Component
             'country' => $this->country,
             'facebook' => $this->facebook,
             'instagram' => $this->instagram,
-            'bio' => $this->bio,
             'user_id' => auth()->user()->id,
         ]);
 
         auth()->user()->is_creator = true;
         auth()->user()->save();
+
+        auth()->user()->assignRole('Creador');
 
         $this->reset('name', 'email', 'phone', 'address', 'city', 'country', 'facebook', 'instagram', 'bio');
 

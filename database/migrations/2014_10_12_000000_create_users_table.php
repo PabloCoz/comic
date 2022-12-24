@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('username');
             $table->string('password');
             $table->string('slug');
+            $table->boolean('status')->default(true);
             $table->boolean('is_creator')->default(false);
             $table->rememberToken();
             $table->string('profile_photo_path', 2048)->nullable();

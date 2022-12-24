@@ -21,6 +21,6 @@ class UserPolicy
 
     public function creator(User $user)
     {
-        return $user->is_creator == 1;
+        return $user->is_creator == true;
     }
 }

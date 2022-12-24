@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
 
         Storage::makeDirectory('comics');
         Storage::makeDirectory('chapters');
-        
+        $this->call(PermissionSeeder::class);
+        $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(CategorySeeder::class);
         $this->call(ComicSeeder::class);

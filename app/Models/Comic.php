@@ -57,4 +57,9 @@ class Comic extends Model
         return 'slug';
     }
 
+    public function observations()
+    {
+        return $this->hasMany(Observation::class);
+    }
+
 }
