@@ -65,7 +65,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($user->profile->is_original == 2)
+                                        @if ($user->profile && $user->profile->is_original == 2)
                                             <button wire:click="original({{ $user->id }})" class="btn btn-success"
                                                 type="submit">ORIGINAL</button>
                                         @endif
