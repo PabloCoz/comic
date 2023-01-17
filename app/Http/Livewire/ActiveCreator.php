@@ -38,7 +38,6 @@ class ActiveCreator extends Component
             'bio' => $this->bio,
         ]);
 
-        auth()->user()->is_creator = true;
         auth()->user()->save();
 
         auth()->user()->assignRole('Creador');
