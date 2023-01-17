@@ -7,10 +7,11 @@
                 </div>
                 {!! Form::open(['route' => 'creator.comics.store', 'files' => true]) !!}
                 {!! Form::hidden('user_id', auth()->user()->id) !!}
+                {!! Form::hidden('profile_id', auth()->user()->profile->id) !!}
                 @include('creator.comics.partials.form')
 
                 <div class="flex justify-end mt-3">
-                    {!! Form::submit('Crear', ['class' => 'rounded-full text-white bg-green-600 font-bold p-2']) !!}
+                    {!! Form::submit('Crear', ['class' => 'rounded-full text-white bg-green-600 font-bold p-2 cursor-pointer']) !!}
                 </div>
                 {!! Form::close() !!}
             </div>

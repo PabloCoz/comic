@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ComicController;
 use App\Http\Controllers\HomeController;
 use App\Http\Livewire\ActiveCreator;
 use App\Http\Livewire\Comic\ComicStatus;
 use App\Http\Livewire\Comic\ComicUser;
+use App\Http\Livewire\SearchUsers;
 use Illuminate\Support\Facades\Route;
 
 
@@ -30,3 +32,9 @@ Route::post('/comics/{comic}/enrolled', [ComicController::class, 'enrolled'])->m
 Route::get('/comics/{comic}/{chapter}', ComicStatus::class)->middleware('auth')->name('comics.status');
 
 Route::get('/my-comics', ComicUser::class)->middleware('auth')->name('comics.user');
+
+Route::get('/search-users', SearchUsers::class)->name('search.users');
+
+Route::get('users/{user}', [UserController::class, 'show'])->name('users.show');
+
+Route::post('users/{user}/originl', [UserController::class, 'original'])->middleware('auth')->name('users.original');

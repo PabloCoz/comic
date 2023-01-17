@@ -3,16 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Profile;
-use App\Models\User;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class CategoryController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('can:Listar Usuario (administrador)')->only('index');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index');
+        $categories = Category::all();
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -30,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -41,7 +37,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:categories',
+            'slug' => 'required|unique:categories'
+        ]);
+
+        $category = Category::create($request->all());
+        return redirect()->route('admin.categories.edit', compact('category'))->with('info', 'Se creó correctamente');
     }
 
     /**
@@ -50,7 +52,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
         //
     }
@@ -61,9 +63,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -73,9 +75,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'slug' => 'required|unique:categories,slug,' . $category->id,
+        ]);
+        $category->update($request->all());
+        return redirect()->route('admin.categories.edit', $category)->with('info', 'La categoría se actualizó con éxito');
     }
 
     /**
@@ -84,17 +91,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Category $category)
     {
-        
-    }
-
-    public function acceptOriginal(User $user)
-    {
-        $user->profile->update([
-            'is_original' => Profile::ORIGINAL
-        ]);
-
-        return redirect()->route('users.show', $user);
+        $category->delete();
+        return redirect()->route('admin.categories.index')->with('delete', 'Se elimino correctamente');
     }
 }

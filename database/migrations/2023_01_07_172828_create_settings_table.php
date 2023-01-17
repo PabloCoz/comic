@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('chapters', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug');
-            $table->integer('position');
-            $table->string('image')->nullable();
-            $table->foreignId('comic_id')->constrained();
+            $table->string('key')->unique();
+            $table->text('value')->nullable();
+            $table->string('type')->default('text');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('chapters');
+        Schema::dropIfExists('settings');
     }
 };

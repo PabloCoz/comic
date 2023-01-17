@@ -22,6 +22,7 @@ class ActiveCreator extends Component
             'address' => 'required',
             'city' => 'required',
             'country' => 'required',
+            'bio' => 'required',
         ]);
 
         auth()->user()->profile()->create([
@@ -34,6 +35,7 @@ class ActiveCreator extends Component
             'facebook' => $this->facebook,
             'instagram' => $this->instagram,
             'user_id' => auth()->user()->id,
+            'bio' => $this->bio,
         ]);
 
         auth()->user()->is_creator = true;

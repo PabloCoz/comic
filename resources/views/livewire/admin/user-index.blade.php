@@ -16,6 +16,8 @@
                                 <th>ID</th>
                                 <th>Nombre de Usuario</th>
                                 <th>Creador</th>
+                                <th>Original</th>
+                                <th></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -32,6 +34,21 @@
                                         @endif
                                     </td>
                                     <td>
+                                        @if ($user->profile)
+                                            @switch($user->profile->is_original)
+                                                @case(0)
+                                                    <span class="badge badge-primary">NO</span>
+                                                @break
+
+                                                @case(1)
+                                                    <span class="badge badge-warning">SI</span>
+                                                @break
+
+                                                @default
+                                            @endswitch
+                                        @endif
+                                    </td>
+                                    <td>
                                         @if ($user->status)
                                             <span class="badge badge-success">Activo</span>
                                         @else
@@ -45,6 +62,12 @@
                                         @else
                                             <button wire:click="activar({{ $user->id }})" class="btn btn-success"
                                                 type="submit">ACTIVAR</button>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($user->profile->is_original == 2)
+                                            <button wire:click="original({{ $user->id }})" class="btn btn-success"
+                                                type="submit">ORIGINAL</button>
                                         @endif
                                     </td>
                                 </tr>

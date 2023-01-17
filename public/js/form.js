@@ -30,3 +30,16 @@ function cambiarImagen(event) {
 
     reader.readAsDataURL(file);
 }
+
+document.getElementById("img").addEventListener('change', cambioImg);
+
+function cambioImg(event) {
+    var img = event.target.files[0];
+
+    var asa = new FileReader();
+    asa.onload = (event) => {
+        document.getElementById("portada").setAttribute('src', event.target.result);
+    };
+
+    asa.readAsDataURL(img);
+}

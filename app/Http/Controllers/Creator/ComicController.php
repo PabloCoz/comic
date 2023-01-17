@@ -51,6 +51,8 @@ class ComicController extends Controller
             'slug' => 'required',
             'description' => 'required',
             'category_id' => 'required',
+            'profile_id' => 'required',
+            'img' => 'image',
             'file' => 'image',
         ]);
         $comic =  Comic::create($request->all());
@@ -58,6 +60,13 @@ class ComicController extends Controller
             $url = Storage::put('comics', $request->file('file'));
             $comic->image()->create([
                 'url' => $url
+            ]);
+        }
+
+        if ($request->file('img')) {
+            $url = Storage::put('comic_portada', $request->file('img'));
+            $comic->update([
+                'img' => $url
             ]);
         }
 
@@ -103,23 +112,41 @@ class ComicController extends Controller
             'slug' => 'required',
             'description' => 'required',
             'category_id' => 'required',
+            'profile_id' => 'required',
             'file' => 'image',
-
+            'img' => 'image',
         ]);
 
         $comic->update($request->all());
 
         if ($request->file('file')) {
-            $url = Storage::put('comics', $request->file('file'));
 
             if ($comic->image) {
                 Storage::delete($comic->image->url);
+                $url = Storage::put('comics', $request->file('file'));
                 $comic->image->update([
                     'url' => $url,
                 ]);
             } else {
+                $url = Storage::put('comics', $request->file('file'));
                 $comic->image()->create([
                     'url' => $url,
+                ]);
+            }
+        }
+
+        if ($request->file('img')) {
+
+            if ($comic->img) {
+                Storage::delete($comic->img);
+                $url = Storage::put('comic_portada', $request->file('img'));
+                $comic->update([
+                    'img' => $url,
+                ]);
+            } else {
+                $url = Storage::put('comic_portada', $request->file('img'));
+                $comic->update([
+                    'img' => $url,
                 ]);
             }
         }
@@ -135,7 +162,9 @@ class ComicController extends Controller
      */
     public function destroy(Comic $comic)
     {
-        //
+        $this->authorize('created', $comic);
+        $comic->delete();
+        return redirect()->route('creator.comics.index')->with('success', 'Comic deleted successfully');
     }
 
     public function status(Comic $comic)

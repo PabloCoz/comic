@@ -15,5 +15,16 @@ class ComicObserver
         }
         $comic->chapters()->delete();
 
+        if($comic->img)
+        {
+            Storage::delete($comic->img);
+        }
+    }
+
+    public function updating(Comic $comic)
+    {
+        if ($comic->isDirty('img')) {
+            Storage::delete($comic->getOriginal('img'));
+        }
     }
 }

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->boolean('is_creator')->default(false);
             $table->rememberToken();
             $table->string('profile_photo_path', 2048)->nullable();
+            $table->string('front_page')->nullable();
             $table->timestamps();
         });
     }

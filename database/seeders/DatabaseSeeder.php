@@ -16,9 +16,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Storage::deleteDirectory('comics');
+        Storage::deleteDirectory('comic_portada');
         Storage::deleteDirectory('chapters');
 
         Storage::makeDirectory('comics');
+        Storage::makeDirectory('comic_portada');
         Storage::makeDirectory('chapters');
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);

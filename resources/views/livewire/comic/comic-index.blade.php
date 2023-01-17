@@ -1,10 +1,12 @@
-<div>
-    <div class="max-w-6xl lg:max-w-7xl mx-auto mt-4">
+<div class="bg-black">
+    <div class="max-w-6xl lg:max-w-7xl mx-auto">
+
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2">
             <div class="px-4">
                 <h1 class="text-xl font-josefin uppercase">Filtros</h1>
                 <div class="mt-8">
-                    <input type="text" class="w-full rounded-full" placeholder="Buscar..." wire:keydown="clearPage" wire:model="search" >
+                    <input type="text" class="w-full rounded-full" placeholder="Buscar..." wire:keydown="clearPage"
+                        wire:model="search">
                 </div>
                 <div class="mt-3" x-data="{ cat: false }">
                     <button @click="cat=!cat"
@@ -16,7 +18,7 @@
                         </svg>
 
                     </button>
-                    <ul class="mx-4" x-show="cat">
+                    <ul class="mx-4 text-white" x-show="cat">
                         @foreach ($this->categories as $category)
                             <li>
                                 <label for="{{ $category->id }}">
@@ -38,24 +40,59 @@
             </div>
 
             <div class="col-span-3 col-start-1 md:col-start-2 mt-10">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    @foreach ($comics as $item)
-                        <a href="{{ route('comics.show', $item) }}"
-                            class="overflow-hidden bg-white rounded-lg shadow-md hover:bg-rose-500 hover:text-white">
-                            <div class="p-2">
-                                <div>
-                                    <img src="{{ Storage::url($item->image->url) }}" class="rounded-lg">
-                                </div>
-                                <div>
-                                    <h1 class="text-lg font-bold font-josefin">{{ $item->title }}</h1>
-                                    <p class="text-sm">{{ Str::limit($item->description, 30) }}</p>
-                                </div>
-                            </div>
-                        </a>
-                    @endforeach
+                <div>
+                    <h1 class="font-josefin text-2xl uppercase text-rose-400 font-bold text-center">comics que sigues
+                    </h1>
                 </div>
-                <div class="mt-3 p-2">
-                    {{ $comics->links() }}
+                <hr class="my-4 border-dashed">
+                <div>
+                    <h1 class="font-josefin text-2xl uppercase text-sky-400 font-bold text-center">originales de baps
+                        comics
+                    </h1>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-2">
+                        @foreach ($this->originals as $item)
+                            <a href="{{ route('comics.show', $item) }}"
+                                class="overflow-hidden shadow-md hover:bg- rose-500 text-white">
+                                <div class="">
+                                    <div class="flex justify-center items-center">
+                                        <img src="{{ Storage::url($item->img) }}"
+                                            class="rounded-lg w-full h-52 md:h-full object-contain">
+                                    </div>
+                                    <div>
+                                        <h1 class="text-sm md:text-lg font-bold font-josefin text-center">
+                                            {{ Str::limit($item->title, 30, '...') }}</h1>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+                <hr class="my-4 border-dashed">
+                <div>
+                    <h1 class="font-josefin text-2xl uppercase text-rose-400 font-bold text-center mb-4">comics
+                        sugeridos
+                    </h1>
+
+                    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 p-2">
+                        @foreach ($comics as $item)
+                            <a href="{{ route('comics.show', $item) }}"
+                                class="overflow-hidden shadow-md hover:bg- rose-500 text-white">
+                                <div class="">
+                                    <div class="flex justify-center items-center">
+                                        <img src="{{ Storage::url($item->img) }}"
+                                            class="w-full h-52 md:h-64 object-contain">
+                                    </div>
+                                    <div>
+                                        <h1 class="text-sm md:text-lg font-bold font-josefin text-center">
+                                            {{ Str::limit($item->title, 30, '...') }}</h1>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
+                    <div class="mt-3 p-2">
+                        {{ $comics->links() }}
+                    </div>
                 </div>
             </div>
         </div>

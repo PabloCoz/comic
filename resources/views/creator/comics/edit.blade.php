@@ -4,7 +4,7 @@
         @include('creator.comics.partials.form')
 
         <div class="flex justify-end mt-3">
-            {!! Form::submit('Actualizar', ['class' => 'rounded-full text-white bg-green-600 font-bold p-2']) !!}
+            {!! Form::submit('Actualizar', ['class' => 'rounded-full text-white bg-green-600 font-bold p-2 cursor-pointer']) !!}
         </div>
         {!! Form::close() !!}
     </div>

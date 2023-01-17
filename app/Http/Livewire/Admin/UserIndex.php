@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Profile;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -37,6 +38,15 @@ class UserIndex extends Component
         $user = User::find($user);
         $user->status = true;
         $user->save();
+        $this->emitSelf('render');
+    }
+
+    public function original($user)
+    {
+        $user = User::find($user);
+        $user->profile->update([
+            'is_original' => Profile::ORIGINAL
+        ]);
         $this->emitSelf('render');
     }
 }

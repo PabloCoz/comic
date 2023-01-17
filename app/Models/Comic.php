@@ -62,4 +62,9 @@ class Comic extends Model
         return $this->hasMany(Observation::class);
     }
 
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class);
+    }
+
 }

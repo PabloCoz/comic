@@ -14,7 +14,6 @@ module.exports = {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
                 josefin: ['Josefin Sans', 'sans-serif'],
-                luckiest: ['Luckiest Guy', 'cursive'],
             },
         },
     },

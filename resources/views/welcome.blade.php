@@ -121,17 +121,19 @@
             <p class="text-white text-center font-josefin mt-4">MILES DE CREADORES YA SE ESTAN SUMANDO ¿QUE ESPERAS?</p>
 
             <div class="mt-6 text-white">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-
-
+                <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 p-2">
                     @foreach ($comics as $comic)
-                        <a href="{{ route('comics.show', $comic) }}" class="overflow-hidden bg-white rounded-lg shadow">
-                            <div class="px-6 py-4">
-                                <img src="{{Storage::url($comic->image->url)}}" class="rounded-lg">
-                                <div class="text-xl mb-2 text-black font-luckiest">{{ $comic->title }}</div>
-                                <p class="text-gray-700 text-base">
-                                    {{ Str::limit($comic->description, 60) }}
-                                </p>
+                        <a href="{{ route('comics.show', $comic) }}"
+                            class="overflow-hidden shadow-md hover:bg- rose-500 text-white">
+                            <div class="">
+                                <div class="flex justify-center items-center">
+                                    <img src="{{ Storage::url($comic->img) }}"
+                                        class="w-full h-52 md:h-64 object-contain">
+                                </div>
+                                <div>
+                                    <h1 class="text-sm md:text-lg font-bold font-josefin text-center">
+                                        {{ Str::limit($comic->title, 30, '...') }}</h1>
+                                </div>
                             </div>
                         </a>
                     @endforeach
@@ -145,5 +147,9 @@
                 </a>
             </div>
         </div>
+    </section>
+
+    <section>
+        <x-footer />
     </section>
 </x-app-layout>

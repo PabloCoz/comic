@@ -21,6 +21,9 @@
                     <a href="{{ route('home') }}"
                         class="text-white uppercase text-sm hover:border-b-2 p-2 tracking-widest font-bold hover:border-rose-500">
                         Nosotros</a>
+                    <a href="{{ route('search.users') }}"
+                        class="text-white uppercase text-sm hover:border-b-2 p-2 tracking-widest font-bold hover:border-rose-500 @routeIs('search.users') border-b-2 border-rose-500 @endif">
+                        Busqueda</a>
                 </div>
             </div>
 
@@ -70,10 +73,15 @@
                                             Panel de administrador
                                         </x-jet-dropdown-link>
                                     @endcan
-
-                                    <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                        {{ __('Profile') }}
-                                    </x-jet-dropdown-link>
+                                    @if (auth()->user()->profile)
+                                        <x-jet-dropdown-link href="{{ route('users.show', auth()->user()) }}">
+                                            {{ __('Profile') }}
+                                        </x-jet-dropdown-link>
+                                    @else
+                                        <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                            {{ __('Profile') }}
+                                        </x-jet-dropdown-link>
+                                    @endif
 
                                     <div class="border-t border-gray-100"></div>
 
@@ -137,9 +145,19 @@
             </div>
             <div class="flex items-center justify-between mt-3">
                 <div class="flex items-center">
-                    <img src="{{ auth()->user()->profile_photo_url }}"
-                        class="h-9 w-9 rounded-full object-center object-contain">
-                    <h1 class="ml-2">{{ auth()->user()->username }}</h1>
+                    @if (auth()->user()->profile)
+                        <a href="{{ route('users.show', auth()->user()) }}" class="flex items-center">
+                            <img src="{{ auth()->user()->profile_photo_url }}"
+                                class="h-9 w-9 rounded-full object-center object-cover">
+                            <h1 class="ml-2">{{ auth()->user()->username }}</h1>
+                        </a>
+                    @else
+                        <a href="{{ route('profile.show') }}" class="flex items-center">
+                            <img src="{{ auth()->user()->profile_photo_url }}"
+                                class="h-9 w-9 rounded-full object-center object-cover">
+                            <h1 class="ml-2">{{ auth()->user()->username }}</h1>
+                        </a>
+                    @endif
                 </div>
 
                 <div>

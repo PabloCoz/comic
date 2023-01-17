@@ -11,8 +11,17 @@ class Profile extends Model
 
     protected $guarded = ['id'];
 
+    const ORIGINAL = 1;
+    const PROCESO = 2;
+    const NOT = 3; 
+
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function comic()
+    {
+        return $this->hasMany(Comic::class);
     }
 }

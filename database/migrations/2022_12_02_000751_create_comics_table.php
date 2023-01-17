@@ -19,9 +19,11 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug');
             $table->text('description');
+            $table->string('img')->nullable();
             $table->enum('status', [Comic::ELABORACIÓN, Comic::REVISIÓN, Comic::PUBLICADO])->default(Comic::ELABORACIÓN);
             $table->foreignId('category_id')->constrained();
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('profile_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

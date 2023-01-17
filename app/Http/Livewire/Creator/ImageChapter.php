@@ -12,7 +12,7 @@ class ImageChapter extends Component
 {
     use WithFileUploads;
 
-    public $chapter, $ident, $img;
+    public $chapter, $ident, $img, $image;
 
     public function mount(Chapter $chapter)
     {
@@ -45,6 +45,27 @@ class ImageChapter extends Component
     {
         unset($this->img[$index]);
         $this->img = array_values($this->img);
+    }
+
+    public function store()
+    {
+        $this->validate([
+            'image' => 'image|max:2048',
+        ]);
+
+        if ($this->chapter->image) {
+            Storage::delete($this->chapter->image);
+            $url = Storage::put('chapters', $this->image);
+            $this->chapter->update([
+                'image' => $url,
+            ]);
+        } else {
+            $url = Storage::put('chapters', $this->image);
+            $this->chapter->update([
+                'image' => $url,
+            ]);
+        }
+        $this->reset('image');
     }
 
     public function createImages()

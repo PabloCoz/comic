@@ -326,6 +326,18 @@ return [
             'active' => ['admin/comics*'],
         ],
         [
+            'text' => 'Administración de vistas',
+            'route'  => 'admin.settings.index',
+            'icon' => 'fas fa-fw fa-stream',
+            'active' => ['admin/setting/index'],
+        ],
+        [
+            'text' => 'Categorias',
+            'route'  => 'admin.categories.index',
+            'icon' => 'fas fa-fw fa-layer-group',
+            'active' => ['admin/categories*'],
+        ],
+        [
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [

@@ -15,8 +15,13 @@ class ComicIndex extends Component
     public function render()
     {
         $comics =  Comic::orderBy('id', 'desc')
+            ->where('status', Comic::PUBLICADO)
             ->where('title', 'like', '%' . $this->search . '%')
-            ->category($this->cate)->paginate(12);
+            ->category($this->cate)
+            ->whereHas('profile', function ($query) {
+                $query->where('is_original', false);
+            })
+            ->paginate(12);
         return view('livewire.comic.comic-index', compact('comics'));
     }
 
@@ -33,5 +38,16 @@ class ComicIndex extends Component
     public function clearPage()
     {
         $this->resetPage();
+    }
+
+    public function getOriginalsProperty()
+    {
+        return Comic::where('status', Comic::PUBLICADO)
+            ->where('title', 'like', '%' . $this->search . '%')
+            ->category($this->cate)
+            ->whereHas('profile', function ($query) {
+                $query->where('is_original', true);
+            })->take(4)
+            ->get();
     }
 }
