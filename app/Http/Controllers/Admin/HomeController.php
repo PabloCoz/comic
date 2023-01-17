@@ -14,7 +14,7 @@ class HomeController extends Controller
     {
         $comics = Comic::count();
         $users = User::count();
-        $profiles = Profile::where('is_original', true)->count();
+        $profiles = Profile::where('is_original', 3)->count();
         return view('admin.index', compact('comics', 'users', 'profiles'));
     }
 }
