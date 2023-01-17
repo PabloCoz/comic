@@ -12,12 +12,13 @@ class ImageChapter extends Component
 {
     use WithFileUploads;
 
-    public $chapter, $ident, $img, $image;
+    public $chapter, $ident, $img, $image, $ide;
 
     public function mount(Chapter $chapter)
     {
         $this->chapter = $chapter;
         $this->ident = rand();
+        $this->ide = rand();
     }
 
     public function render()

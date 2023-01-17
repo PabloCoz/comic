@@ -10,7 +10,7 @@
             </div>
             <div>
                 <div>
-                    <label for="{{ $ident }}" class="flex items-center bg-blue-300 p-2 rounded-full">
+                    <label for="{{ $ide }}" class="flex items-center bg-blue-300 p-2 rounded-full">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -19,7 +19,7 @@
                         <h1 class="mx-1 font-bold">Subir imagenes</h1>
                     </label>
 
-                    <input wire:model="image" id="{{ $ident }}" type="file" class="hidden" accept="image/*" />
+                    <input wire:model="image" id="{{ $ide }}" type="file" class="hidden" accept="image/*" />
                 </div>
                 @if ($image && $image->isValid())
                     <div class="mt-2">
