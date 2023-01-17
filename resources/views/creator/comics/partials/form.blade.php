@@ -62,7 +62,7 @@
     </div>
 </div>
 
-@if (auth()->user()->profile->is_original == true)
+@if (auth()->user()->profile->is_original == 3)
     <h1 class="text-2xl font-bold mt-8 mb-2">Imagen de portada horizontal</h1>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <figure>
